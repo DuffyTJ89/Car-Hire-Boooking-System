@@ -68,4 +68,19 @@ enter
 	mysql -u root -p
 
 enter new password for root user
+*************
+install JDBC
 
+go to 
+
+https://dev.mysql.com/downloads/connector/
+
+select Connector/J
+
+from dropdown select platform independent 
+
+select the ZIP Archive
+
+save to folder e.g D:\GMIT\DisSys\Project
+
+shorten the folder name to mysql-connector for ease of use

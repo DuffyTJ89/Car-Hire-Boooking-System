@@ -10,6 +10,10 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import ie.gmit.sw.Model.Booking;
+import ie.gmit.sw.Model.Customer;
+import ie.gmit.sw.Model.Vehicle;
+
 import java.sql.SQLException;
 
 import java.rmi.*;
@@ -22,7 +26,8 @@ public class BookingServiceImpl extends UnicastRemoteObject implements BookingSe
 
 	protected BookingServiceImpl() throws RemoteException, SQLException {
 		super();
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/car_Hire_Booking_System?useSSL=false", "root", "");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/carhireservice?useSSL=false", "root",
+				"DisSys18");
 
 		stmt = conn.createStatement();
 	}
@@ -36,29 +41,49 @@ public class BookingServiceImpl extends UnicastRemoteObject implements BookingSe
 		}
 	}
 
-	public List<ReturnedBooking> readBookings() throws RemoteException {
+	@Override
+	public List<Booking> readBookings() throws RemoteException {
 		System.out.println("Bookings : /n");
-		String strSelect = "select * from bookings";
+		String strSelect = "SELECT * FROM booking";
 		ResultSet rset = null;
-		ArrayList<ResultSet> rsSerialized = new ArrayList<ResultSet>();
-		ReturnedBooking booking = new ReturnedBooking();
-		List<ReturnedBooking> bookings = new ArrayList<ReturnedBooking>();
+//		ArrayList<ResultSet> rsSerialized = new ArrayList<ResultSet>();
+		Booking booking = new Booking();
+		List<Booking> bookings = new ArrayList<>();
 
 		try {
 			rset = stmt.executeQuery(strSelect); // get the result set
-		} catch (SQLException e) {
-			System.out.println("error with SQL resultset");
-		}
 
-		try {
+//		} catch (SQLException e) {
+//			System.out.println("error with SQL resultset");
+//		}
+//
+//		try {
 			while (rset.next()) { // loop while there is another record
-				booking.setBookingId(rset.getInt("booking_id"));
-				booking.setVehicleId(rset.getInt("vehicle_id"));
-				booking.setCustomerId(rset.getInt("customer_id"));
-				booking.setStartDate(rset.getString("start_date"));
-				booking.setEndDate(rset.getString("end_date"));
+				System.out.println("looping resultset");
+				Vehicle tempVehicle = new Vehicle();
+				tempVehicle.setId(rset.getInt("vehicle"));
+//				
+//				make a db query for that vehicle
+//				populate the vehicle data 
+				
+				
+				Customer tempCustomer = new Customer();
+				tempCustomer.setCustomerId(rset.getInt("customer"));
+//				query db for customer
+//				populate customer fields
+				// select all where = cusID
+				
+				
+				booking.setBookingId(rset.getInt("id"));
+				booking.setStartDate(rset.getString("startDate"));
+				booking.setEndDate(rset.getString("endDate"));
+
+				booking.setCustomer(tempCustomer);
+				booking.setVehicle(tempVehicle);
 
 				bookings.add(booking);
+				
+//				bookings.forEach(System.out::println);
 			}
 		} catch (SQLException e) {
 

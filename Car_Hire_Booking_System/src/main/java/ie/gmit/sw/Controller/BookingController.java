@@ -4,22 +4,20 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ie.gmit.sw.RMIdata.BookingService;
-import ie.gmit.sw.RMIdata.ReturnedBooking;
 import ie.gmit.sw.Model.Booking;
+import ie.gmit.sw.RMIdata.BookingService;
 
 public class BookingController {
 	BookingService bookingService;
 
-	public BookingController() { //get a handle on the remote object
-		
+	public BookingController() { // get a handle on the remote object
+
 		try {
-			this.bookingService = (BookingService) Naming.lookup("rmi://127.0.0.1:1099/bookingService");
+			this.bookingService = (BookingService) Naming.lookup("bookingService");
+			System.out.println("bookingservice is null: " + bookingService == null);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
@@ -30,32 +28,33 @@ public class BookingController {
 
 	}
 
-	public String getAllBookings() {
-		ResultSet rs = null;
-		List<ReturnedBooking> bookings = new ArrayList<ReturnedBooking>();
-		ReturnedBooking resultBooking;
-		String startDate = null;
-		String resultObject = null;
+	public List<Booking> getAllBookings() {
+//		ResultSet rs = null;
+//		List<ReturnedBooking> bookings = new ArrayList<ReturnedBooking>();
+//		ReturnedBooking resultBooking;
+//		String startDate = null;
+//		String resultObject = null;
 
 		try {
-			bookings = bookingService.readBookings();
-			System.out.println("--- /n");
+//			bookings = bookingService.readBookings();
+			System.out.println("in controller.get all bookings");
+			return bookingService.readBookings();
 		} catch (RemoteException e) {
 
 			System.out.println("error with getAllBookings BookingController");
 			e.printStackTrace();
 		}
-
-		System.out.println(bookings.size());
-		resultBooking = bookings.get(0);
-
-		System.out.println("resultBooking : " + resultBooking.getBookingId());
-		return resultBooking.toString();
+		return null;
+//		System.out.println(bookings.size());
+//		resultBooking = bookings.get(0);
+//
+//		System.out.println("resultBooking : " + resultBooking.getBookingId());
+//		return resultBooking.toString();
 	}
 
-	public ReturnedBooking getBookingById(int id) {
-		List<ReturnedBooking> bookings = new ArrayList<ReturnedBooking>();
-		ReturnedBooking resultBooking = null;
+	public Booking getBookingById(int id) {
+		List<Booking> bookings = new ArrayList<>();
+		Booking resultBooking = null;
 
 		try {
 			bookings = bookingService.readBookings();
@@ -64,7 +63,7 @@ public class BookingController {
 			e.printStackTrace();
 		}
 
-		for (ReturnedBooking b : bookings) {
+		for (Booking b : bookings) {
 			if (b.getBookingId() == id) {
 				resultBooking = b;
 			}
@@ -79,9 +78,9 @@ public class BookingController {
 
 	}
 
-	public void createBooking(ReturnedBooking booking) { // create a new booking
-		String query = "Insert INTO bookings VALUES(" + booking.getBookingId() + "," + booking.getVehicleId() + ","
-				+ booking.getCustomerId() + ",\"" + booking.getStartDate() + "\",\"" + booking.getEndDate() + "\");";
+	public void createBooking(Booking booking) { // create a new booking
+		String query = "Insert INTO bookings VALUES(" + booking.getBookingId() + "," + booking.getVehicle().getId() + ","
+				+ booking.getCustomer().getCustomerId() + ",\"" + booking.getStartDate() + "\",\"" + booking.getEndDate() + "\");";
 
 		try {
 			bookingService.createBooking(query);
@@ -91,10 +90,10 @@ public class BookingController {
 		}
 	}
 
-	public void updateBooking(ReturnedBooking booking) { //update the booking details
+	public void updateBooking(Booking booking) { // update the booking details
 
-		String query = "UPDATE bookings SET vehicle_id =" + booking.getVehicleId() + ", " + "customer_id ="
-				+ booking.getCustomerId() + ", " + "start_date =\"" + booking.getStartDate() + "\", " + "end_date =\""
+		String query = "UPDATE bookings SET vehicle_id =" + booking.getVehicle().getId() + ", " + "customer_id ="
+				+ booking.getCustomer().getCustomerId() + ", " + "start_date =\"" + booking.getStartDate() + "\", " + "end_date =\""
 				+ booking.getEndDate() + "\" WHERE booking_id=" + booking.getBookingId() + ";";
 
 		try {

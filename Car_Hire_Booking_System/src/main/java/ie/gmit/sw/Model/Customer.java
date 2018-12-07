@@ -7,6 +7,8 @@
 
 package ie.gmit.sw.Model;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -15,8 +17,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Customer", namespace = "http://sw.gmit.ie/Model/", propOrder = { "customerId", "firstName", "lastName",
 		"age", "county", "dateOfBirth" })
-public class Customer {
+public class Customer implements Serializable {
 
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName + ", age="
+				+ age + ", county=" + county + ", dateOfBirth=" + dateOfBirth + "]";
+	}
+
+	private static final long serialVersionUID = 1L;
 	@XmlElement(namespace = "http://sw.gmit.ie/Model/")
 	protected int customerId;
 	@XmlElement(namespace = "http://sw.gmit.ie/Model/", required = true)

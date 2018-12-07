@@ -1,5 +1,5 @@
 
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gmit="http://sw.gmit.ie/Model/" targetNamespace="http://sw.gmit.ie/Model/" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gmit="http://sw.gmit.ie/dsModels/" targetNamespace="http://sw.gmit.ie/dsModels/" elementFormDefault="qualified">
 <xsd:element name='comment' type='xsd:string'/>
 
 <xsd:element name='booking' type='gmit:Booking'/>

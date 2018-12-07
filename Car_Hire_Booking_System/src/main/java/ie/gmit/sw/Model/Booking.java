@@ -8,6 +8,8 @@
 
 package ie.gmit.sw.Model;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -41,16 +43,24 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Booking", namespace = "http://sw.gmit.ie/dsModels/", propOrder = {
+@XmlType(name = "Booking", namespace = "http://sw.gmit.ie/Model/", propOrder = {
     "vehicle",
     "customer"
 })
 @XmlRootElement
-public class Booking {
+public class Booking implements Serializable{
 
-    @XmlElement(namespace = "http://sw.gmit.ie/dsModels/", required = true)
+	private static final long serialVersionUID = 1L;
+	
+	@Override
+	public String toString() {
+		return "Booking [vehicle=" + vehicle + ", customer=" + customer + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", bookingId=" + bookingId + "]";
+	}
+
+	@XmlElement(namespace = "http://sw.gmit.ie/Model/", required = true)
     protected Vehicle vehicle;
-    @XmlElement(namespace = "http://sw.gmit.ie/dsModels/", required = true)
+    @XmlElement(namespace = "http://sw.gmit.ie/Model/", required = true)
     protected Customer customer;
     @XmlAttribute(name = "bookingNumber", required = true)
     protected String bookingNumber;

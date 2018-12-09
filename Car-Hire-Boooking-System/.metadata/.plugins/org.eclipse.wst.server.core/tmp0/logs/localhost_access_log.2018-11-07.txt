@@ -1,0 +1,5 @@
+127.0.0.1 - - [07/Nov/2018:16:46:37 +0000] "GET / HTTP/1.1" 404 1036
+0:0:0:0:0:0:0:1 - - [07/Nov/2018:16:46:41 +0000] "GET /Car_Hire_Booking_System/ HTTP/1.1" 200 247
+0:0:0:0:0:0:0:1 - - [07/Nov/2018:16:46:43 +0000] "GET /Car_Hire_Booking_System/webapi/myresource HTTP/1.1" 200 7
+0:0:0:0:0:0:0:1 - - [07/Nov/2018:16:53:52 +0000] "GET /Car_Hire_Booking_System/ HTTP/1.1" 200 264
+0:0:0:0:0:0:0:1 - - [07/Nov/2018:16:54:44 +0000] "GET /Car_Hire_Booking_System/ HTTP/1.1" 200 264

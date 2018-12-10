@@ -1,6 +1,15 @@
 # Car-Hire-Boooking-System
 A RESTful Car Hire Booking System
 
+# Run the project
+
+* use the sql files in the database DatabaseWithData folder. Steps to set up db are below if needed.
+* customer records can be retuned in the console or by using postman.
+* the web app isn't finished so doesn't talk to the the RESTful app or the db.
+* RESTful and RMI are working with customer records.
+* Application uses tomcat sever 7. 
+
+
 # Creating mysql Client/Server.
 
 download Windows (x86, 64-bit), ZIP Archive from https://dev.mysql.com/downloads/mysql/
